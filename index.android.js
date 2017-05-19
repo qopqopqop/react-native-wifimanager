@@ -7,15 +7,10 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  Modal,
-  StyleSheet,
-  TextInput,
-  TouchableHighlight,
-  ScrollView,
-  View
+  StyleSheet
 } from 'react-native';
 import wifi from 'react-native-android-wifi';
-import { Container, Content, Picker, List, ListItem, Button, Text, InputGroup, Input, Form, Item } from 'native-base';
+import { Container, Content, Picker, List, ListItem, Button, Text, InputGroup, Input, Form, Item, Toast } from 'native-base';
 const Itemp = Picker.Item
 
 
@@ -27,7 +22,8 @@ export default class WifiApp extends Component {
       selected1: '0',
       wifiList: [],
       password: '',
-      ssid: ''
+      ssid: '',
+      showToast: false
     }
   }
 
@@ -66,8 +62,20 @@ export default class WifiApp extends Component {
     wifi.findAndConnect(this.state.ssid, this.state.password, (found) => {
       if (found) {
         console.log('connected successfully...');
+        Toast.show({
+              // supportedOrientations=['potrait','landscape'],
+              text: 'connected successfully...!',
+              position: 'bottom',
+              buttonText: 'Okay'
+            })
       } else {
         console.log('unable to connect....');
+        Toast.show({
+              // supportedOrientations=['potrait','landscape'],
+              text: 'unable to connect....!',
+              position: 'bottom',
+              buttonText: 'Okay'
+            })
       }
     });
   }
